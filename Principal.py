@@ -1,3 +1,4 @@
+from PIL.features import version_feature
 from babel.dates import match_skeleton
 
 Cod = {}
@@ -5,13 +6,49 @@ Cod = {}
 fin = True
 
 def agregar():
+    codigos = ["J", "P", "B","S"]
+
     print('Funcion para añadir productos: ')
+    print('Inicio de codigo clave: J= Pantalones P = Playeras B = Blusas S = Sueter')
+    cantidad = int(input('Ingrese la cantidad de prendas que desea añadir: '))
+    for i in range(cantidad):
+        cod_prenda = input(f'Ingrese el codigo de {i+1} prenda: ').upper() #se recibe el codigp de prenda para ser añadido
+
+        if cod_prenda[0] not in codigos:
+            print('Codigo invalido por favor intentelo de nuevo')
+            continue
+
+        nombre_producto = input('Nombre del producto: ')
+        categoria = input('H=Hombre, M=mujer y N=niño: ').upper()
+        talla = input('Ingrese la talla S/M/L/XL: ').upper()
+        precio = float(input('Ingrese el precio de la prenda: '))
+        stock_r = int(input('Ingrese la existencia de prendas: '))
+
+        # Diccionario que contiene codigo  todos los atributos
+        Cod[cod_prenda] = {
+            "Nombre": nombre_producto,
+            "Categoria": categoria,
+            "Talla": talla,
+            "Precio": precio,
+            "Stock": stock_r
+        }
+
+
 
 def view_items():
     print('Productos disponibles')
 
+    if not Cod:
+        print('No hay productos disponibles aún')
+
+    else:
+        for prop, camp in Cod.items():
+            print(prop, ' : ', camp)
+
+
 def existencia():
     print('Existencia de productos')
+
 
 def total():
     print('Este es el total del inventario')
